@@ -1,0 +1,36 @@
+<script src="https://service.iamport.kr/js/iamport.payment-1.1.2.js" type="text/javascript"></script>
+<script>
+  IMP.init('imp385783');
+  IMP.request_pay({
+    pg : 'kakao',
+    pay_method : 'card',
+    merchant_uid : 'merchant_' + new Date().getTime(),
+    name : '주문명:결제테스트',
+    amount : 14000,
+    buyer_email : 'iamport@siot.do',
+    buyer_name : '구매자이름',
+    buyer_tel : '010-1234-5678',
+    buyer_addr : '서울특별시 강남구 삼성동',
+    buyer_postcode : '123-456'
+}, function(rsp) {
+    if ( rsp.success ) {
+        $('#payment_imp_uid').val(rsp.imp_uid);
+        $('#payment_merchant_uid').val(rsp.merchant_uid);
+        $('#payment_paid_amount').val(rsp.paid_amount);
+        $('#payment_apply_num').val(rsp.apply_num);
+    } else {
+        $('#payment_error_msg').val(rsp.error_msg);
+    }
+});
+</script>
+
+
+<h1>Orders#show</h1>
+
+<p> total price</p>
+<p> <%= @order.total_price %></p>
+<%= @order.products.each do |product| %>
+<p> <%= product.name %></p>
+<% end %>
+
+

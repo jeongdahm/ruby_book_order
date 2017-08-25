@@ -1,0 +1,40 @@
+<h1>shopping cart </h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Provider</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.description %></td>
+        <td><%= product.price %></td>
+        <td>
+          <%if product.provider.present? %>
+          <%= product.provider.name %>
+          <%else %>
+          <span>no provider</span>
+          <%end %>
+          
+          </td>
+          
+        <td><%= link_to 'show', '' %></td>
+        <td><%= link_to 'X', "/cart/#{product.id}", method: :delete  %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div>
+  <p>Total price of shopping cart</p>
+  <p><%= current_user.cart_total_price %> won</p>
+</div>
+<div><%= link_to 'build_order', "/orders", method: :post %></div>
